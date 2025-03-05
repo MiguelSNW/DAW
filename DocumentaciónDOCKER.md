@@ -13,7 +13,7 @@ for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker c
 
 Lo siguientes es hacer el set-up del repositorio de docker con los siguientes comandos:
 
-```bash
+```
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 

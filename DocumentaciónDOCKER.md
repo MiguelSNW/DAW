@@ -1,4 +1,4 @@
-ACTIVIDADES MOODLE SOBRE DOCKER - MIGUEL ÁNGEL GRANDE SÁNCHEZ
+![image](https://github.com/user-attachments/assets/0f56ac55-8adf-4d61-aba3-6fb2d7574512)ACTIVIDADES MOODLE SOBRE DOCKER - MIGUEL ÁNGEL GRANDE SÁNCHEZ
 ______________________________________________________________________________________________________________________
 
 1- PRÁCTICA 1
@@ -396,20 +396,255 @@ docker compose ps
 ```
 ![image](https://github.com/user-attachments/assets/695d77af-8d9c-4620-bb20-015bbd5f9556)
 
+Ahora accedo a localhost:8080 y se comprueba que funcionó
+
+![image](https://github.com/user-attachments/assets/bd04383d-2e6b-4439-b14b-78a1de571b77)
+
+
+EJEMPLO 2 - Despliegue de la aplicación Temperaturas
+
+Accedo al docker-compose.yml y coloco lo siguiente:
+
+
+```
+nano docker-compose.yml
+
+
+version: '3.1'
+services:
+  frontend:
+    container_name: temperaturas-frontend
+    image: iesgn/temperaturas_frontend
+    restart: always
+    ports:
+      - 8081:3000
+    environment:
+      TEMP_SERVER: temperaturas-backend:5000
+    depends_on:
+      - backend
+  backend:
+    container_name: temperaturas-backend
+    image: iesgn/temperaturas_backend
+    restart: always
+```
+![image](https://github.com/user-attachments/assets/be6db149-7968-4776-ab2b-da95c4350ba2)
+
+Seguimos con:
+
+```
+docker compose up -d
+
+```
+
+![image](https://github.com/user-attachments/assets/160b1625-43d5-4a36-9000-aaea3482d5bb)
+
+Pues ahora se accede a localhost:8081 y se verá Temperaturas
+
+![image](https://github.com/user-attachments/assets/85df4b83-50bc-4652-b624-1f6c2ede123e)
+
+EJEMPLO 3 - Despliegue de WordPress + Mariadb
+
+Accedo al docker-compose.yml y coloco lo siguiente:
+
+
+```
+nano docker-compose.yml
+
+
+version: '3.1'
+services:
+  wordpress:
+    container_name: servidor_wp
+    image: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: root
+    ports:
+      - 8002:80
+    volumes:
+      - wordpress_data:/var/www/html/wp-content
+  db:
+    container_name: servidor_mysql
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: bd_wp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mariadb_data:/var/lib/mysql
+volumes:
+    wordpress_data:
+    mariadb_data:
+
+```
+![image](https://github.com/user-attachments/assets/b134b81c-65de-490d-962e-416fc9253b34)
 
 
 
+Creo el escenario:
+```
+docker compose up -d
+```
+![image](https://github.com/user-attachments/assets/ac22fa33-4cc6-4fad-84f6-e89381f00815)
+
+
+Y listo, solo deberé acceder a localhost:8002
+
+![image](https://github.com/user-attachments/assets/b727eb5b-c68b-4162-8a53-a2f3dfc2117d)
+
+______________________________________________________________________________________________________________________
+
+6. PRÁCTICA 6
+
+EJEMPLO 1 - Construcción de imágenes con una página estática
+
+En este ejemplo vamos a crear una imagen con una página estática. Vamos a crear tres versiones de la imagen.
+
+Tenemos un directorio, que en Docker se denomina contexto, donde tenemos el fichero Dockerfile y un directorio, llamado public_html con nuestra página web:
+
+```
+ls
+Dockerfile  public_html
+
+```
+
+![image](https://github.com/user-attachments/assets/c737d1f9-24c6-4990-86ac-8f1cc611206a)
+
+En este caso vamos a usar una imagen base de un sistema operativo sin ningún servicio. El fichero Dockerfile será el siguiente:
+
+```
+# syntax=docker/dockerfile:1
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y apache2 && apt-get clean && rm -rf /var/lib/apt/lists/*
+WORKDIR /var/www/html/
+COPY public_html .
+EXPOSE 80
+CMD apache2ctl -D FOREGROUND
+
+```
+
+![image](https://github.com/user-attachments/assets/e46fd68b-6b5c-4560-bf2d-c82735c0af5d)
+
+Al usar una imagen base debian:stable-slim tenemos que instalar los paquetes necesarios para tener el servidor web, en este acaso apache2. A continuación añadiremos el contenido del directorio public_html al directorio /var/www/html/ del contenedor y finalmente indicamos el comando que se deberá ejecutar al crear un contenedor a partir de esta imagen: iniciamos el servidor web en segundo plano.
+
+Para crear la imagen ejecuto:
+
+```
+docker build -t xmigue28/ejemplo1:v1 .
+
+```
+
+![image](https://github.com/user-attachments/assets/3d157a85-02d9-4313-ad8b-797a78bfad61)
+
+Compruebo que la imagen se ha creado:
+
+```
+docker images
+```
+
+![image](https://github.com/user-attachments/assets/6f6dac6d-4731-43aa-ab66-0159d9d2116b)
+
+
+Y creo un contenedor:
+
+```
+docker run -d -p 80:80 --name ejemplo1 xmigue28/ejemplo1:v1
+```
+
+![image](https://github.com/user-attachments/assets/3d157a85-02d9-4313-ad8b-797a78bfad61)
+
+
+Y accedo con el navegador a mi página:
+
+![image](https://github.com/user-attachments/assets/3eedf4df-9222-447c-b74a-2f0bd998a810)
+
+EJEMPLO 2 - Construcción de imágenes con una una aplicación PHP
+
+En el contexto voy a tener el fichero Dockerfile y un directorio, llamado app con mi aplicación.
+
+En este caso voy a usar una imagen base de un sistema operativo sin ningún servicio. El fichero Dockerfile será el siguiente:
+```
+# syntax=docker/dockerfile:1
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y apache2 libapache2-mod-php7.4 php7.4 && apt-get clean && rm -rf /var/lib/apt/lists/* && rm /var/www/html/index.html
+COPY app /var/www/html/
+EXPOSE 80
+CMD apache2ctl -D FOREGROUND
+
+```
+![image](https://github.com/user-attachments/assets/437c4dcb-dcef-4676-af93-c2a5703f746a)
+
+He descargado la versión 1 del repositorio https://github.com/josedom24/curso_docker_ies/blob/main/ejemplos/modulo5/ejemplo2/version1/
+para la realización de esta actividad.
+
+Lo siguiente es crear la imagen: 
+```
+docker build -t xmigue28/ejemplo2:v1 .
+```
+
+![image](https://github.com/user-attachments/assets/06113625-b8e3-4502-adbb-021787ca05d8)
+
+Compruebo que la imagen se ha creado:
+
+[Uploading image.png…]()
+
+Y creo un contenedor:
+
+```
+ docker run -d -p 80:80 --name ejemplo2 josedom24/ejemplo2:v1
+```
+
+![image](https://github.com/user-attachments/assets/d1040305-2052-498b-a8bd-29704d54fa7b)
+
+![image](https://github.com/user-attachments/assets/dc8c3126-c25d-45a4-bd20-975293102781)
 
 
 
+EJEMPLO 3 - Construcción de imágenes con una una aplicación Python
+
+He descargado la versión 1 del repositorio https://github.com/josedom24/curso_docker_ies/tree/main/ejemplos/modulo5/ejemplo3/app
+para la realización de esta actividad.
 
 
+En este ejemplo voy a construir una imagen para servir una aplicación escrita en Python utilizando el framework flask. La aplicación será servida en el puerto 3000/tcp. 
 
+En el contexto voy a tener el fichero Dockerfile y un directorio, llamado app con mi aplicación.
 
+En este caso vamos a usar una imagen base de un sistema operativo sin ningún servicio. El fichero Dockerfile será el siguiente:
 
+```
+# syntax=docker/dockerfile:1
+FROM debian:12
+RUN apt-get update && apt-get install -y python3-pip  && apt-get clean && rm -rf /var/lib/apt/lists/*
+WORKDIR /usr/share/app
+COPY app .
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
+EXPOSE 3000
+CMD python3 app.py
+```
+![image](https://github.com/user-attachments/assets/e93d4fda-c827-41ed-840f-c6d782cab42e)
 
+Ahora creo la imagen:
 
+```
+docker build -t josedom24/ejemplo3:v1 .
+```
+![image](https://github.com/user-attachments/assets/56413b56-5098-47f7-b736-159595751dbf)
 
+Y creo el contenedor con:
+
+```
+docker run -d -p 80:3000 --name ejemplo2 josedom24/ejemplo3:v1
+```
+
+Me meto en localhost y se comprueba que aparece la aplicación:
+
+![Uploading image.png…]()
 
 
 

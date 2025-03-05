@@ -13,6 +13,7 @@ for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker c
 
 Lo siguientes es hacer el set-up del repositorio de docker con los siguientes comandos:
 
+```bash
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 
@@ -21,6 +22,8 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 
 sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+```
 
 Y añado el repositio en el apt
 
@@ -33,14 +36,19 @@ https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "${UBUNTU_C
 ![image](https://github.com/user-attachments/assets/e0931c6a-0244-46a0-bc5b-da8c38cfc061)
 
 Lo siguiente es instalar los paquetes de Docker con
+```bash
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
 
 ![image](https://github.com/user-attachments/assets/9d0d1dd7-e431-4cfd-83ac-4512260fd22d)
 
 Por último compruebo que todo esté correcto con:
+```bash
 
 sudo docker run hello-world
+
+```
 
 ![image](https://github.com/user-attachments/assets/19a7e1e9-3106-4f59-8169-cf5d6bab5319)
 
@@ -51,32 +59,42 @@ ________________________________________________________________________________
 ![image](https://github.com/user-attachments/assets/26dcedae-bb82-467a-af5a-b8e06a27778f)
 
 Para crear una imagen hello-world simplemente y como he mostrado antes con el comando
+```bash
 
 sudo docker run hello-world
+```
 
 ![image](https://github.com/user-attachments/assets/4723ded6-2eba-4ee4-81e6-7061825885e5)
 
 Para mostrar las imágenes creadas, se utiliza:
+```bash
+
 
 sudo docker images
+```
 
 ![image](https://github.com/user-attachments/assets/589560a1-f06a-44b0-b357-0df108a43857)
 
 Para mostrar los contenedores en docker se realiza con:
+```bash
 
 sudo docker ps
+```
 
 ![image](https://github.com/user-attachments/assets/c94c5f37-ed41-4eca-8a70-9b6fb3eee975)
 
 Y para verlos todos docker ps -a
 
+
 ![image](https://github.com/user-attachments/assets/49dd3d8d-8659-4dda-bfdd-c787e5a1fe19)
 
 Lo siguiente que voy a crear y editar es un dockerfile con:
+```
 
 mkdir mi_proyecto
 cd mi_proyecto
 nano Dockerfile
+```
 
 ![image](https://github.com/user-attachments/assets/9428d1e8-c928-4864-b9b7-c71626ecceac)
 

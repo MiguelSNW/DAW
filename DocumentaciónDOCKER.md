@@ -178,6 +178,9 @@ Ahora veo en mi repositorio si se ha subido:
 
 3- PRÁCTICA 3
 
+![image](https://github.com/user-attachments/assets/89c94a0b-98fe-433a-8f8a-80591481b3ba)
+
+
 Para descargar la imagen de ubuntu hay que hacer lo siguiente:
 
 ```docker pull ubuntu```
@@ -260,6 +263,9 @@ docker rm -f $(docker ps -aq)
 ______________________________________________________________________________________________________________________
 
 4. PRÁCTICA 4
+
+![image](https://github.com/user-attachments/assets/cc110c86-8ca4-4dcf-bdeb-97fb07b39579)
+
 
 Voy a coger los ejemplos 1, 2 y 3 para hacer esta tarea.
 
@@ -357,6 +363,9 @@ Luego voy a localhost y ya estaría terminado el punto.
 ______________________________________________________________________________________________________________________
 
 5. PRÁCTICA 5
+
+![image](https://github.com/user-attachments/assets/a6a5a317-bf07-404c-a5b8-5d775f0a0d69)
+
 
 En esta práctica cogeré los 3 ejemplos.
 
@@ -502,6 +511,9 @@ Y listo, solo deberé acceder a localhost:8002
 ______________________________________________________________________________________________________________________
 
 6. PRÁCTICA 6
+
+   ![image](https://github.com/user-attachments/assets/1be90aab-13e8-43f3-89a5-4c01e93d30af)
+
 
 EJEMPLO 1 - Construcción de imágenes con una página estática
 
@@ -653,7 +665,7 @@ Me meto en localhost y se comprueba que aparece la aplicación:
 ![image](https://github.com/user-attachments/assets/828c6c19-9d08-4c34-81fb-6ae1bcf536ac)
 
 
-
+~~~~TRABAJO REALIZADO POR MIGUEL ÁNGEL GRANDE SÁNCHEZ~~~
 
 
 

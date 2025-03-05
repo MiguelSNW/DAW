@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/0f56ac55-8adf-4d61-aba3-6fb2d7574512)ACTIVIDADES MOODLE SOBRE DOCKER - MIGUEL ÁNGEL GRANDE SÁNCHEZ
+ACTIVIDADES MOODLE SOBRE DOCKER - MIGUEL ÁNGEL GRANDE SÁNCHEZ
 ______________________________________________________________________________________________________________________
 
 1- PRÁCTICA 1

@@ -561,7 +561,8 @@ docker run -d -p 80:80 --name ejemplo1 xmigue28/ejemplo1:v1
 
 Y accedo con el navegador a mi página:
 
-![image](https://github.com/user-attachments/assets/3eedf4df-9222-447c-b74a-2f0bd998a810)
+![image](https://github.com/user-attachments/assets/5d9ba16e-80e8-40ff-9e36-4abca675b81f)
+
 
 EJEMPLO 2 - Construcción de imágenes con una una aplicación PHP
 
@@ -571,7 +572,7 @@ En este caso voy a usar una imagen base de un sistema operativo sin ningún serv
 ```
 # syntax=docker/dockerfile:1
 FROM debian:stable-slim
-RUN apt-get update && apt-get install -y apache2 libapache2-mod-php7.4 php7.4 && apt-get clean && rm -rf /var/lib/apt/lists/* && rm /var/www/html/index.html
+RUN apt-get update && apt-get install -y apache2 libapache2-mod-php php && apt-get clean && rm -rf /var/lib/apt/lists/* && rm /var/www/html/index.html
 COPY app /var/www/html/
 EXPOSE 80
 CMD apache2ctl -D FOREGROUND
@@ -580,7 +581,7 @@ CMD apache2ctl -D FOREGROUND
 ![image](https://github.com/user-attachments/assets/437c4dcb-dcef-4676-af93-c2a5703f746a)
 
 He descargado la versión 1 del repositorio https://github.com/josedom24/curso_docker_ies/blob/main/ejemplos/modulo5/ejemplo2/version1/
-para la realización de esta actividad.
+para la realización de esta actividad y la he colocado junto al archivo Dockerfile.
 
 Lo siguiente es crear la imagen: 
 ```
@@ -601,7 +602,10 @@ Y creo un contenedor:
 
 ![image](https://github.com/user-attachments/assets/d1040305-2052-498b-a8bd-29704d54fa7b)
 
-![image](https://github.com/user-attachments/assets/dc8c3126-c25d-45a4-bd20-975293102781)
+Y compruebo que todo ha salido bien en localhost
+
+![image](https://github.com/user-attachments/assets/ece12422-c0a0-4004-9037-25969a366deb)
+
 
 
 
@@ -644,7 +648,8 @@ docker run -d -p 80:3000 --name ejemplo2 josedom24/ejemplo3:v1
 
 Me meto en localhost y se comprueba que aparece la aplicación:
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/828c6c19-9d08-4c34-81fb-6ae1bcf536ac)
+
 
 
 

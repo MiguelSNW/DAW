@@ -15,8 +15,11 @@ Lo siguientes es hacer el set-up del repositorio de docker con los siguientes co
 
 sudo apt-get update
 sudo apt-get install ca-certificates curl
+
 sudo install -m 0755 -d /etc/apt/keyrings
+
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
 Y añado el repositio en el apt

@@ -6,8 +6,10 @@ ________________________________________________________________________________
 ![image](https://github.com/user-attachments/assets/8980ff0e-3bb4-45f2-ade8-907ae196fe61)
 
 Lo primero que hay que hacer es desinstalar los paquetes que puedan dar problemas a futuro:
+```
 
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+```
 
 ![image](https://github.com/user-attachments/assets/4ebed60a-7fa5-47d3-9754-581cf12936ec)
 
